@@ -11,6 +11,7 @@ public class AdminController {
 	public static ArrayList <Orderlist> orders = new ArrayList<>(); 
 	public static ArrayList<Integer> tmp = new ArrayList<>();
 	static int total_price; 
+	static DB db = new DB();
 	
 	// 매출
 	public static void sales() {
@@ -30,7 +31,8 @@ public class AdminController {
 			
 		Orderlist orderlist = new Orderlist(food, food_num, price);
 		orders.add(orderlist);
-			
+		// 먹거리 파일 업로드
+		db.upLoad(2); // (해결)
 	}
 	
 	// 재고 정리 (인자값을 받아서 if문을 실행하여 각 재고등록 및 재고정리를 실행할지 생각해야됨 
@@ -61,48 +63,54 @@ public class AdminController {
 
 	//사용자 주문 화면 
 	public static void client_order() {
+		// 먹거리 파일 다운로드
+		db.downLoad(2); // (해결)
 		System.out.println("------먹거리------ ");	
 		int i = 1;
 		System.out.println("번호\t제품명\t제품가격");
 		for(Orderlist temp : orders) {
-			System.out.printf(i +"."+"%s\t%d\t\n",temp.getFood(),temp.getPrice());
+			System.out.printf(i +"."+"\t%s\t%d원\t\n",temp.getFood(),temp.getPrice());
 			i++;
 		}
 		// 사용자 주문 처리
 		//System.out.println("구매하실 제품명을 입력해주세요");
 		System.out.println("구매하실 제품번호를 선택해주세요.");
 		int ch2 = Kiosk.sc.nextInt();
-		System.out.println("1");
 		
 		for(int j = 0; j<orders.size(); j++) {
-			System.out.println("2");
 			// 주문리스트 인덱스와 입력한 제품번호가 일치하면
 			int price_sum = 0;
-			System.out.println("3");
 			// 주문하려는 물품리스트와 사용자의 구매 물품이 일치하면 
 			tmp.add(j);
 			if(tmp.get(j).equals(ch2 - 1)) {
-				System.out.println("2");
 				// 주문 리스트 추가  // 구매하는 순간 다 더해버려야됨 
 				price_sum = orders.get(j).getPrice() + price_sum; 
 				System.out.println("장바구니에 담겼습니다. ");
 				// ------------------------------------------------------------------------------------------------------장바구니 메소드 작동시키기 (장바구니 결제 이후제품수량 제거하기 결제 번호 인자값 전달)
 				// order_basket(j);
-				for (Integer tp : tmp) {
+				for (Integer tp : tmp) { // 구매하던 못하던 하나씩 먹거리 목록에 추가됨 // 하나만 선택해도 무조건 결제해야 함
 					int f = 1;
 					System.out.println("======장바구니======");
 					f++;
-					System.out.printf(f + "." + "\t%s\t%s", orders.get(tp).getFood(), orders.get(tp).getPrice());
+					System.out.printf(f + "." + "\t%s\t%s", orders.get(tp).getFood(), orders.get(tp).getPrice() + "원\n");
 					System.out.println("총 결제액 : " + price_sum+"원");
 					
-					System.out.println("결제 하실 금액을 입력해주세요 "); int client_price  = Kiosk.sc.nextInt();
+					System.out.println("결제 하실 금액을 입력해주세요 ");
+					System.out.println("----->");
+					 int client_price  = Kiosk.sc.nextInt();
 					if(client_price > price_sum) {
 						int 거스름돈 = (client_price - price_sum);
+						System.out.println("결제 완료");
 						System.out.println("거스름돈 : "+ 거스름돈 + "원");
 						total_price += price_sum;
+					}else if(client_price == price_sum) {
+						System.out.println("결제 완료");
+						total_price += price_sum;
 					} else {
+						System.out.println("결제 실패");
 						System.out.println("금액 부족 : " + (price_sum - client_price) + "원");
 					}
+					break;
 				}
 
 			}
@@ -111,7 +119,7 @@ public class AdminController {
 	
 	
 	public static void login(){
-		DB.downLoad();
+		DB.downLoad(1);
 		while(true) {
 			Member cc = new Member();
 			try {
@@ -142,7 +150,7 @@ public class AdminController {
 							Member member = new Member(adminId, adminPw, adminName, adminMail);
 							
 							boolean resultAdmin = MemberController.signup(member);
-							DB.upLoad();
+							DB.upLoad(1);
 							
 							if(resultAdmin) {
 								System.out.println("[알림] 회원가입 성공");

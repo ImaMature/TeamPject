@@ -15,9 +15,10 @@ public class KioskController {
 		AdminController ac = new AdminController();
 		MemberController mc = new MemberController();
 		Member member = new Member();
-		DB.downLoad();
+		DB.downLoad(1);
 		int ch2 = 0;
 		int ch3;
+		boolean sw = true;
 		
 		
 		String seatEmpty = "□\t";
@@ -42,13 +43,11 @@ public class KioskController {
 			System.out.print("----->");
 			
 			int ch = Kiosk.sc.nextInt();
-			
-			if(ch == 1) {
-				System.out.print("ID : ");
-				String id = Kiosk.sc.next();
-				System.out.print("PW : ");
-				String pw = Kiosk.sc.next();
-				
+				if(ch == 1) {
+					System.out.print("ID : ");
+					String id = Kiosk.sc.next();
+					System.out.print("PW : ");
+					String pw = Kiosk.sc.next();
 				
 				boolean Logcheck = MemberController.login(id, pw);
 				
@@ -79,16 +78,27 @@ public class KioskController {
 				System.out.print("PW : ");
 				String pw = Kiosk.sc.next();
 				
+				for(int i = 0; i < seat.size(); i++) {
+					if(id.equals("admin") || seat.get(i).equals(seatEnough)) {
+						sw = false;
+						break;
+					} 
+				}
+				if(sw) {
+					System.out.println("좌석 예약 후 이용 바랍니다.");
+					sw = true;
+					continue;
+				}
+				
 				boolean Logcheck = MemberController.login(id, pw);
 				boolean run = true;
 				if(Logcheck) {
 					long firstTime = System.nanoTime();
 					int kkkkk1 = (int)(firstTime/1000000000);
-					System.out.println(firstTime / 1000000000);
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
-							System.out.println("1. 회원가입 2. 회원정보 3. 재고확인 4. 재고등록 5. 시간추가 6. 매출확인");
+							System.out.println("1. 회원가입 2. 회원정보 3. 재고확인 4. 재고등록 5. 시간추가 \n6. 매출확인 7.아이디찾기 8. 비밀번호찾기 9. 나가기");
 							int adminCh = Kiosk.sc.nextInt();
 								
 							if(adminCh == 1){
@@ -100,7 +110,7 @@ public class KioskController {
 								Member guest = new Member(adminId, adminPw, adminName, adminMail);
 								
 								boolean resultAdmin = MemberController.signup(guest);
-								DB.upLoad();
+								DB.upLoad(1);
 							
 								if(resultAdmin) {
 									System.out.println("[알림] 회원가입 성공");
@@ -130,8 +140,8 @@ public class KioskController {
 								System.out.println("아이디 : ");	String id2 = Kiosk.sc.next();
 								System.out.println("이메일 : ");	String email2 = Kiosk.sc.next();
 								mc.forgotPd(id2, email2);
-							}else {
-								run = false;
+							}else if(adminCh ==  9) {
+								break;
 							}
 						}
 				String[] gamement = {"로스트아크 : 에포나 의뢰중", "롤 : 영혼의 한타중", "GTA5 : 습격 미션 진행중", "디아블로2 : 메피스토 앵벌중"
@@ -177,7 +187,7 @@ public class KioskController {
 					long endTime = System.nanoTime();
 					int kkkkk2 = (int)(endTime/1000000000);
 					int kkkkk = (int)(kkkkk2 - kkkkk1);
-					System.out.println("사용시간 : " + kkkkk  + "초");
+					System.out.println("사용시간 : " + kkkkk  + "초"); // 시간, 분, 초로 찍기
 				}
 			}
 		}

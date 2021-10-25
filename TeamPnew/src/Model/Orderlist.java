@@ -37,7 +37,11 @@ public class Orderlist {
 		this.price = price;
 	}
 	
-	
+	public Orderlist(String food, String food_num, String price) {
+		this.food = food;
+		this.food_num = Integer.parseInt(food_num);
+		this.price = Integer.parseInt(price);
+	}
 	
 	
 }
