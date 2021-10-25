@@ -13,11 +13,12 @@ public class KioskController {
 	public static void seatStatus() {
 		ArrayList<String> seat = new ArrayList<>();
 		AdminController ac = new AdminController();
+		MemberController mc = new MemberController();
 		Member member = new Member();
 		DB.downLoad();
 		int ch2 = 0;
 		int ch3;
-		
+		boolean empty = true;
 		
 		String seatEmpty = "□\t";
 		String seatEnough = "■\t";
@@ -78,6 +79,19 @@ public class KioskController {
 				System.out.print("PW : ");
 				String pw = Kiosk.sc.next();
 				
+				for(int i = 0; i < seat.size(); i++) {
+					if(seat.get(i).equals(seatEnough)) {
+						empty = false;
+						break;
+					}
+				}
+
+				if(empty) {
+					System.out.println("자리 확인 요망");
+					empty = true;
+					continue;
+				}
+				
 				boolean Logcheck = MemberController.login(id, pw);
 				boolean run = true;
 				if(Logcheck) {
@@ -87,7 +101,7 @@ public class KioskController {
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
-							System.out.println("1. 회원가입 2. 회원정보 3. 재고확인 4. 재고등록 5. 시간추가 6. 매출확인");
+							System.out.println("1. 회원가입 2. 회원정보 3. 재고확인 4. 재고등록 5. 시간추가 6. 매출확인 7. 아이디찾기 8. 비밀번호찾기");
 							int adminCh = Kiosk.sc.nextInt();
 								
 							if(adminCh == 1){
@@ -108,7 +122,7 @@ public class KioskController {
 								}//회원가입 실패
 								break;
 							} else if(adminCh == 2) {
-								MemberController mc = new MemberController();
+								
 								mc.info();
 							} else if(adminCh == 3){
 								ac.order_status();
@@ -119,7 +133,17 @@ public class KioskController {
 								// 시간추가(결제)
 							} else if(adminCh == 6){
 								ac.sales();
-							} else {
+							} else if (adminCh == 7) {
+								
+								System.out.println("이름 : "); 	String name = Kiosk.sc.next();
+								System.out.println("이메일 : ");	String email = Kiosk.sc.next();
+								mc.forgotId(name, email);
+							} else if (adminCh == 8) {
+								System.out.println("아이디 : ");	String id2 = Kiosk.sc.next();
+								System.out.println("이메일 : ");	String email2 = Kiosk.sc.next();
+								mc.forgotPd(id2, email2);
+							}
+							else {
 								run = false;
 							}
 						}
