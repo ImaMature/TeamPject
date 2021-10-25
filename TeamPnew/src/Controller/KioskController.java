@@ -1,6 +1,8 @@
 package Controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import Database.DB;
@@ -19,6 +21,8 @@ public class KioskController {
 		
 		String seatEmpty = "□\t";
 		String seatEnough = "■\t";
+		
+		
 		
 		while(true) {
 			System.out.println("================   PC방 키오스크   ===============");
@@ -77,6 +81,9 @@ public class KioskController {
 				boolean Logcheck = MemberController.login(id, pw);
 				boolean run = true;
 				if(Logcheck) {
+					long firstTime = System.nanoTime();
+					int kkkkk1 = (int)(firstTime/1000000000);
+					System.out.println(firstTime / 1000000000);
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
@@ -116,12 +123,11 @@ public class KioskController {
 								run = false;
 							}
 						}
-				
 				String[] gamement = {"로스트아크 : 에포나 의뢰중", "롤 : 영혼의 한타중", "GTA5 : 습격 미션 진행중", "디아블로2 : 메피스토 앵벌중"
 						, "피파4 : 카드깡 하는중", "스타크래프트 : 손빠르기 측정중", "배틀그라운드 : TOP10이라 존버중", "네이버웹툰 : 싸움독학 보는중"
 						, "유튜브 : 개그채널 보면서 피식대는중", "집 가려고 짐 챙기는 중"};
 				
-						// 시간찍는 메소드
+						
 						System.out.println("------------------  개인 좌석  ------------------");
 						System.out.println("좌석 번호 : " + (seat.indexOf(seatEnough) + 1));
 						System.out.println("EZEN PC방에 오신것을 환영합니다.");
@@ -137,6 +143,7 @@ public class KioskController {
 									System.out.println(gamement[i]);
 									Thread.sleep(500);
 								}
+								 
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -150,15 +157,19 @@ public class KioskController {
 									if(seat.get(i - 1).equals(seatEnough)) {
 										seat.set((i - 1), seatEmpty).replace(seatEnough, seatEmpty);
 										System.out.println("로그아웃 되었습니다.");
-										// 시간찍는 메소드
 									}
 								}
 							}
 							break;
 						}
 					}
+					long endTime = System.nanoTime();
+					int kkkkk2 = (int)(endTime/1000000000);
+					int kkkkk = (int)(kkkkk2 - kkkkk1);
+					System.out.println("사용시간 : " + kkkkk  + "초");
 				}
 			}
 		}
+	
 	}
 }

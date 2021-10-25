@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import Model.Member;
+import View.Kiosk;
+
 import java.util.Properties;
 
 
@@ -88,18 +90,46 @@ public class MemberController {
 	
 	// 회원정보
 	public static void info() {
-		System.out.println("회원정보");
-		System.out.println("ID : ");
-		System.out.println("NAME : ");
-		System.out.println("E-mail : ");
-		System.out.println("남은 시간 : ");
-		// 여기부턴 욕심
-//		System.out.println("총 사용 금액 : ");
-//		System.out.println("총 사용 시간 : ");
+		System.out.println("아이디 리스트");
+		for(int i = 0; i<memberlist.size(); i++) {
+			
+			System.out.println(memberlist.get(i).getId());
+		}
+		//받아올 객체 (id)
+		System.out.println("회원정보의 아이디를 입력하세요"); String id = Kiosk.sc.next();
+		
+		
+		for(int i =0; i<memberlist.size(); i++) {
+			if(memberlist.get(i).getId().equals(id)) {
+				System.out.println("회원정보 " + (i-1) + "번");
+				System.out.println("ID : " + memberlist.get(i).getId());
+				System.out.println("이름 : " + memberlist.get(i).getName());
+				System.out.println("E-mail : " + memberlist.get(i).getEmail());
+				System.out.println("남은 시간 : " + memberlist.get(i).getTime());
+			}
+		}
+//		if(member.getId().equals(id)) {
+//			int i = 1;
+//		//i번째면 = i번째 출력
+//			for(Member t : memberlist) {
+//			
+//			System.out.println("ID : " + t.getId());
+//			System.out.println("NAME : " + t.getName() );
+//			System.out.println("E-mail : " + t.getEmail());
+//			System.out.println("남은 시간 : " + t.getTime());
+//			i++;
+//		// 여기부턴 욕심
+////		System.out.println("총 사용 금액 : ");
+////		System.out.println("총 사용 시간 : ");
+//			}
+//		}
 	}
 	
 	// 회원 정보 수정
 	public static boolean update() {
+		for(Member t2 : memberlist) {
+			System.out.println("회원 정보 수정");
+		}
 		return true;
 	}
 	

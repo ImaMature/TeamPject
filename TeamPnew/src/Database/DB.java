@@ -13,7 +13,7 @@ public class DB {
 		// memberKind1 -> 키오스크에서 좌석 예약할 때 사용할 번호
 //		if(memberKind == 1) {
 			try {
-				String memberPath = "C:\\Users\\505\\git\\ezen_console2\\TeamProject\\src\\Database\\test.txt";
+				String memberPath = "C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database\\test.txt";
 				FileOutputStream fileOutputStream = new FileOutputStream(memberPath);
 				
 				for(Member member : MemberController.memberlist) {
@@ -40,7 +40,7 @@ public class DB {
 	public static void downLoad() {
 //		if(memberKind == 1) {
 			try {
-				String memberPath = "C:\\Users\\505\\git\\ezen_console2\\TeamProject\\src\\Database\\test.txt";
+				String memberPath = "C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database\\test.txt";
 				FileInputStream fileInputStream = new FileInputStream(memberPath);
 				
 				byte[] bytes = new byte[10240];
