@@ -17,7 +17,7 @@ public class KioskController {
 		DB.downLoad();
 		int ch2 = 0;
 		int ch3;
-		
+		boolean empty = true;
 		
 		String seatEmpty = "□\t";
 		String seatEnough = "■\t";
@@ -77,6 +77,19 @@ public class KioskController {
 				String id = Kiosk.sc.next();
 				System.out.print("PW : ");
 				String pw = Kiosk.sc.next();
+				
+				for(int i = 0; i < seat.size(); i++) {
+					if(seat.get(i).equals(seatEnough)) {
+						empty = false;
+						break;
+					}
+				}
+
+				if(empty) {
+					System.out.println("자리 확인 요망");
+					empty = true;
+					continue;
+				}
 				
 				boolean Logcheck = MemberController.login(id, pw);
 				boolean run = true;
