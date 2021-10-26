@@ -1,5 +1,2 @@
-admin	1234	admin	a@a10,58,03nullnullnull
-qwer	1234	qwe	qwe@qwe
-qqqq	1234	qqq	q@qnullnullnull
-wwww	1234	www	w@wnullnullnull
-aaa1	1234	aa	a@anull
+admin	1234	admin	ad@ad	0	500
+qwer	1234	qwe	q@q	18000	1000

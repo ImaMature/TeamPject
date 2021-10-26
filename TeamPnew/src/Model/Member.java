@@ -8,8 +8,8 @@ public class Member {
 	private String pw;
 	private String name;
 	private String email;
-	private String time;
-	private int money;
+	private int time ;
+	private int money ;
 	
 	public int getMoney() {
 		return money;
@@ -41,22 +41,19 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 	
-	public Member(String id, String pw, String name, String email, String time, int money) {
+	public Member(String id, String pw, String name, String email, int time, int money) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.email = email;
-		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("hh,mm,ss");
-		this.time = sdf.format(date);
+		this.time = time;
 		this.money = money;
 	}
 	// 데이터를 읽어오기 위한 생성자(Date때문에 읽어올 때 에러 발생)
@@ -68,7 +65,7 @@ public class Member {
 	}
 	
 	// 시간과 금액을 나타내기 위한 생성자
-	public Member(String tiem, int money) {
+	public Member(int time, int money) {
 		this.time = time;
 		this.money = money;
 	}

@@ -20,7 +20,7 @@ public class DB {
 				
 				for(Member member : MemberController.memberlist) {
 					
-				String outString = member.getId() + "\t" + member.getPw() + "\t" + member.getName() + "\t" + member.getEmail() + member.getTime() + "\n";
+				String outString = member.getId() + "\t" + member.getPw() + "\t" + member.getName() + "\t" + member.getEmail() + "\t" + member.getTime() + "\t" + member.getMoney() + "\n";
 				fileOutputStream.write(outString.getBytes());
 				}
 				
@@ -67,7 +67,7 @@ public class DB {
 				
 				for(int i = 0; i < members.length - 1; i++) {
 					String[] memberField = members[i].split("\t");
-					Member member = new Member(memberField[0], memberField[1], memberField[2], memberField[3]);
+					Member member = new Member(memberField[0], memberField[1], memberField[2], memberField[3],Integer.parseInt(memberField[4]), Integer.parseInt(memberField[5]) );
 					MemberController.memberlist.add(member);
 					
 				}

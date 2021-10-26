@@ -10,21 +10,27 @@ import Model.Member;
 import View.Kiosk;
 
 public class KioskController {
+	
+	static int kkkkk1 = 0;
+	static int idx_1 = 0;
 	public static void seatStatus() {
 		ArrayList<String> seat = new ArrayList<>();
 		AdminController ac = new AdminController();
 		MemberController mc = new MemberController();
 		Member member = new Member();
+		
 		DB.downLoad(1);
+		DB.downLoad(2);
 		int ch2 = 0;
 		int ch3;
+		
 		boolean sw = true;
 		
 		
 		String seatEmpty = "□\t";
 		String seatEnough = "■\t";
 		
-		
+		// 시간 계산 및 저장할때는 int형으로 받아서 표시할때만 string으로 표현  
 		
 		while(true) {
 			System.out.println("================   PC방 키오스크   ===============");
@@ -38,13 +44,14 @@ public class KioskController {
 				seat.add("□\t");
 				System.out.print(seat.get(i));
 			}
-			System.out.println("\n-----------------------------------------------");
-			System.out.println("1. 회원   2. 좌석선택   3. 선택한 자리로 이동");
-			System.out.print("----->");
 			
+			System.out.println("\n-----------------------------------------------");
+			System.out.println("1. 회원   2. 좌석선택   3. 선택한 자리로 이동 ");
+			System.out.print("----->");
+		
 			int ch = Kiosk.sc.nextInt();
 			if(ch==1) {
-				System.out.println("1. 회원 가입\t2.아이디 찾기\t3.비밀번호 찾기");
+				System.out.println("1. 회원 가입\t2.아이디 찾기\t3.비밀번호 찾기 4. 시간결제 ");
 				int mainCh = Kiosk.sc.nextInt();
 				if(mainCh == 1) {
 					
@@ -53,7 +60,8 @@ public class KioskController {
 					System.out.println("사용할 비밀번호를 입력해주세요"); String adminPw = Kiosk.sc.next();
 					System.out.println("사용할 이름을 입력해주세요"); String adminName = Kiosk.sc.next();
 					System.out.println("사용할 이메일을 입력해주세요"); String adminMail = Kiosk.sc.next();
-					Member guest = new Member(adminId, adminPw, adminName, adminMail);
+					
+					Member guest = new Member(adminId, adminPw, adminName, adminMail, 0, 0);
 					
 					boolean resultAdmin = MemberController.signup(guest);
 					DB.upLoad(1);
@@ -63,11 +71,14 @@ public class KioskController {
 					}else {
 						System.err.println("[알림] 회원가입 실패");
 					}//회원가입 실패
-					continue;
+					//continue;
+					
+					
 				}
 				if(mainCh == 2) {
 					System.out.println("이름 : "); 	String name = Kiosk.sc.next();
 					System.out.println("이메일 : ");	String email = Kiosk.sc.next();
+//					boolean resultId = MemberController.forgotId(name, email);
 					mc.forgotId(name, email);
 					
 					continue;
@@ -78,13 +89,79 @@ public class KioskController {
 					mc.forgotPd(id2, email2);
 					continue;
 				}
-			}
-				if(ch == 4) {
+				if(mainCh == 4) {
+					System.out.println("결제를 위한 로그인");
 					System.out.print("ID : ");
 					String id = Kiosk.sc.next();
 					System.out.print("PW : ");
 					String pw = Kiosk.sc.next();
+					
+					boolean logincheck = MemberController.login(id, pw);
+					
+					
+					
+					if(logincheck) {
+						System.out.println("시간충전을 선택해주세요 ");
+						System.out.println("1. 1시간\t2. 2시간\t3. 5시간\t4. 10시간");
+						int timech = Kiosk.sc.nextInt();
+						
+						if(timech == 1) {
+							for(int i =0; i<MemberController.memberlist.size(); i++) {
+								if(MemberController.memberlist.get(i).getId().equals(id)) {
+									MemberController.memberlist.get(i).setTime(3600);
+									idx_1 = i;
+									break;
+								}
+							}
+//							mc.timeControll();
+						}
+						if(timech == 2) {
+							for(int i =0; i<MemberController.memberlist.size(); i++) {
+								if(MemberController.memberlist.get(i).getId().equals(id)) {
+									MemberController.memberlist.get(i).setTime(7200);
+									idx_1 = i;
+									break;
+								}
+							}
+//							mc.timeControll();
+						}
+						if(timech == 3) {
+							for(int i =0; i<MemberController.memberlist.size(); i++) {
+								if(MemberController.memberlist.get(i).getId().equals(id)) {
+									MemberController.memberlist.get(i).setTime(18000);
+									idx_1 = i;
+									break;
+								}
+							}
+//							mc.timeControll();
+						}
+						if(timech == 4) {
+							for(int i =0; i<MemberController.memberlist.size(); i++) {
+								if(MemberController.memberlist.get(i).getId().equals(id)) {
+									MemberController.memberlist.get(i).setTime(36000);
+									idx_1 = i;
+									break;
+								}
+							}
+//							mc.timeControll();
+						}
+					}
+					mc.timeControll();
+				}
 				
+			}
+		
+			if(ch == 2) {
+					System.out.print("ID : ");
+					String id = Kiosk.sc.next();
+					System.out.print("PW : ");
+					String pw = Kiosk.sc.next();
+
+					for(int i =0; i<MemberController.memberlist.size(); i++) {
+						if(MemberController.memberlist.get(i).getId().equals(id)) {
+							idx_1 = i;
+						}
+					}
 				boolean Logcheck = MemberController.login(id, pw);
 				
 				if(Logcheck) {
@@ -98,7 +175,7 @@ public class KioskController {
 							if(seat.get(i - 1).equals(seatEnough)) { //번호는 123~ 자리 인덱스는 012~
 								System.out.println("선택한 자리가 사용중입니다.");
 							} else {
-								seat.set(i - 1, seatEnough).replace(seatEmpty, seatEnough);
+								seat.set(i - 1, seatEnough).replace(seatEmpty, seatEnough); //?
 								System.out.println("선택한 자리에서 로그인 해주세요.");
 							}
 						}
@@ -107,7 +184,7 @@ public class KioskController {
 					System.out.println("회원정보가 틀립니다.");
 				}
 				
-			} else if(ch == 5) {
+			} else if(ch == 3) {
 				System.out.println("자리 확인을 위한 로그인 필요");
 				System.out.print("ID : ");
 				String id = Kiosk.sc.next();
@@ -130,7 +207,7 @@ public class KioskController {
 				boolean run = true;
 				if(Logcheck) {
 					long firstTime = System.nanoTime();
-					int kkkkk1 = (int)(firstTime/1000000000);
+					kkkkk1 = (int)(firstTime/1000000000);
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
@@ -142,6 +219,7 @@ public class KioskController {
 							} else if(adminCh == 2) {
 								
 								ac.order_status();
+								
 							} else if(adminCh == 3){
 								ac.enroll();
 								break;
@@ -152,7 +230,7 @@ public class KioskController {
 							} else if(adminCh == 6){
 								break;
 							} 
-							
+						continue;	
 						}
 				String[] gamement = {"로스트아크 : 에포나 의뢰중", "롤 : 영혼의 한타중", "GTA5 : 습격 미션 진행중", "디아블로2 : 메피스토 앵벌중"
 						, "피파4 : 카드깡 하는중", "스타크래프트 : 손빠르기 측정중", "배틀그라운드 : TOP10이라 존버중", "네이버웹툰 : 싸움독학 보는중"
@@ -200,6 +278,7 @@ public class KioskController {
 					System.out.println("사용시간 : " + kkkkk  + "초"); // 시간, 분, 초로 찍기
 				}
 			}
+			
 		}
 	
 	}

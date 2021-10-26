@@ -1,6 +1,10 @@
 package Controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import Model.Member;
@@ -8,11 +12,22 @@ import View.Kiosk;
 
 import java.util.Properties;
 
+import Database.DB;
+
 
 
 public class MemberController {
 	
 	public static ArrayList<Member> memberlist = new ArrayList<>();
+	
+	// 시간관리
+	public static void timeControll() {
+		DB.downLoad(1);
+		int saveTime = memberlist.get(KioskController.idx_1).getTime();
+		
+		System.out.printf("%02d : %02d : %02d",(saveTime / 3600), (saveTime%60), (saveTime%60)%60);
+		System.out.println();
+	}
 	
 	// 회원가입
 	public static boolean signup(Member member) {

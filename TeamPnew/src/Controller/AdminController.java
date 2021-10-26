@@ -13,105 +13,115 @@ public class AdminController {
 	static int total_price; 
 	static DB db = new DB();
 	
-	// ë§¤ì¶œ
+	// ¸ÅÃâ
 	public static void sales() {
-		System.out.println("ì´ ë§¤ì¶œ : " + total_price);
+		System.out.println("ÃÑ ¸ÅÃâ : " + total_price);
 
 	}
 	
-	// ì¬ê³ ë“±ë¡
+	// Àç°íµî·Ï
 	public static void enroll() {
 		
-		System.out.println("-----ì¬ê³  ë“±ë¡  ------");
-		System.out.println("ì œí’ˆëª…,ê°€ê²©,ìˆ˜ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”.");
-		//System.out.println("1. ì¬ê³ ë“±ë¡  2. ì¬ê³ ë¹¼ê¸°  3.ì¬ê³ í™•ì¸");
-		System.out.println("ì œí’ˆì´ë¦„ : "); String food = Kiosk.sc.next();
-		System.out.println("ì œí’ˆê°€ê²©: "); int price = Kiosk.sc.nextInt();
-		System.out.println("ì œí’ˆìˆ˜ëŸ‰ : "); int food_num = Kiosk.sc.nextInt();
+		System.out.println("-----Àç°í µî·Ï  ------");
+		System.out.println("Á¦Ç°¸í,°¡°İ,¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä.");
+		//System.out.println("1. Àç°íµî·Ï  2. Àç°í»©±â  3.Àç°íÈ®ÀÎ");
+		System.out.println("Á¦Ç°ÀÌ¸§ : "); String food = Kiosk.sc.next();
+		System.out.println("Á¦Ç°°¡°İ: "); int price = Kiosk.sc.nextInt();
+		System.out.println("Á¦Ç°¼ö·® : "); int food_num = Kiosk.sc.nextInt();
 			
 		Orderlist orderlist = new Orderlist(food, food_num, price);
 		orders.add(orderlist);
-		// ë¨¹ê±°ë¦¬ íŒŒì¼ ì—…ë¡œë“œ
-		db.upLoad(2); // (í•´ê²°)
+		// ¸Ô°Å¸® ÆÄÀÏ ¾÷·Îµå
+		db.upLoad(2); // (ÇØ°á)
 	}
 	
-	// ì¬ê³  ì •ë¦¬ (ì¸ìê°’ì„ ë°›ì•„ì„œ ifë¬¸ì„ ì‹¤í–‰í•˜ì—¬ ê° ì¬ê³ ë“±ë¡ ë° ì¬ê³ ì •ë¦¬ë¥¼ ì‹¤í–‰í• ì§€ ìƒê°í•´ì•¼ë¨ 
+	// Àç°í Á¤¸® (ÀÎÀÚ°ªÀ» ¹Ş¾Æ¼­ if¹®À» ½ÇÇàÇÏ¿© °¢ Àç°íµî·Ï ¹× Àç°íÁ¤¸®¸¦ ½ÇÇàÇÒÁö »ı°¢ÇØ¾ßµÊ 
 	public static void remove() {
-		System.out.println("------ ì¬ê³  ì •ë¦¬ ------");
-		System.out.println("------ ë¬¼í’ˆ ë¦¬ìŠ¤íŠ¸ ------");
+		System.out.println("------ Àç°í Á¤¸® ------");
+		System.out.println("------ ¹°Ç° ¸®½ºÆ® ------");
 		int i = 1;
-		System.out.println("ë²ˆí˜¸\tì œí’ˆëª…");
+		System.out.println("¹øÈ£\tÁ¦Ç°¸í");
 		for(Orderlist temp : orders) {
 			System.out.printf(i+"."+"%s\t\n",temp.getFood());
 			i++;
 		}
-		System.out.println("ì¬ê³ ì •ë¦¬í•  ë¬¼í’ˆì„ ì„ íƒí•´ì£¼ì„¸ìš”"); int ch = Kiosk.sc.nextInt();
+		System.out.println("Àç°íÁ¤¸®ÇÒ ¹°Ç°À» ¼±ÅÃÇØÁÖ¼¼¿ä"); int ch = Kiosk.sc.nextInt();
 		orders.remove(ch-1);
 
 	}
 	
-	// ì¬ê³ í˜„í™© 
+	// Àç°íÇöÈ² 
 	public static void order_status() {
 		
-		System.out.println("------ì¬ê³ í˜„í™© ë©”ë‰´------");
-		System.out.println("ì œí’ˆëª…\tì œí’ˆê°€ê²©\tì œí’ˆìˆ˜ëŸ‰\t");
+		System.out.println("------Àç°íÇöÈ² ¸Ş´º------");
+		System.out.println("Á¦Ç°¸í\tÁ¦Ç°°¡°İ\tÁ¦Ç°¼ö·®\t");
 		for(Orderlist temp : orders) {
 			System.out.printf("%s\t%d\t%d\t\n",temp.getFood(),temp.getPrice(),
 					temp.getFood_num());
 		}	
 	}
 
-	//ì‚¬ìš©ì ì£¼ë¬¸ í™”ë©´ 
+	//»ç¿ëÀÚ ÁÖ¹® È­¸é 
 	public static void client_order() {
-		// ë¨¹ê±°ë¦¬ íŒŒì¼ ë‹¤ìš´ë¡œë“œ
-		db.downLoad(2); // (í•´ê²°)
-		System.out.println("------ë¨¹ê±°ë¦¬------ ");	
+		// ¸Ô°Å¸® ÆÄÀÏ ´Ù¿î·Îµå
+		
+		System.out.println("------¸Ô°Å¸®------ ");	
 		int i = 1;
-		System.out.println("ë²ˆí˜¸\tì œí’ˆëª…\tì œí’ˆê°€ê²©");
+		System.out.println("¹øÈ£\tÁ¦Ç°¸í\tÁ¦Ç°°¡°İ");
 		for(Orderlist temp : orders) {
-			System.out.printf(i +"."+"\t%s\t%dì›\t\n",temp.getFood(),temp.getPrice());
+			System.out.printf(i +"."+"\t%s\t%d¿ø\t\n",temp.getFood(),temp.getPrice());
 			i++;
 		}
-		// ì‚¬ìš©ì ì£¼ë¬¸ ì²˜ë¦¬
-		//System.out.println("êµ¬ë§¤í•˜ì‹¤ ì œí’ˆëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
-		System.out.println("êµ¬ë§¤í•˜ì‹¤ ì œí’ˆë²ˆí˜¸ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.");
+		// »ç¿ëÀÚ ÁÖ¹® Ã³¸®
+		//System.out.println("±¸¸ÅÇÏ½Ç Á¦Ç°¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+		System.out.println("±¸¸ÅÇÏ½Ç Á¦Ç°¹øÈ£¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.");
 		int ch2 = Kiosk.sc.nextInt();
 		
 		for(int j = 0; j<orders.size(); j++) {
-			// ì£¼ë¬¸ë¦¬ìŠ¤íŠ¸ ì¸ë±ìŠ¤ì™€ ì…ë ¥í•œ ì œí’ˆë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ë©´
+			// ÁÖ¹®¸®½ºÆ® ÀÎµ¦½º¿Í ÀÔ·ÂÇÑ Á¦Ç°¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é
 			int price_sum = 0;
-			// ì£¼ë¬¸í•˜ë ¤ëŠ” ë¬¼í’ˆë¦¬ìŠ¤íŠ¸ì™€ ì‚¬ìš©ìì˜ êµ¬ë§¤ ë¬¼í’ˆì´ ì¼ì¹˜í•˜ë©´ 
+			// ÁÖ¹®ÇÏ·Á´Â ¹°Ç°¸®½ºÆ®¿Í »ç¿ëÀÚÀÇ ±¸¸Å ¹°Ç°ÀÌ ÀÏÄ¡ÇÏ¸é 
 			tmp.add(j);
 			if(tmp.get(j).equals(ch2 - 1)) {
-				// ì£¼ë¬¸ ë¦¬ìŠ¤íŠ¸ ì¶”ê°€  // êµ¬ë§¤í•˜ëŠ” ìˆœê°„ ë‹¤ ë”í•´ë²„ë ¤ì•¼ë¨ 
+				// ÁÖ¹® ¸®½ºÆ® Ãß°¡  // ±¸¸ÅÇÏ´Â ¼ø°£ ´Ù ´õÇØ¹ö·Á¾ßµÊ 
 				price_sum = orders.get(j).getPrice() + price_sum; 
-				System.out.println("ì¥ë°”êµ¬ë‹ˆì— ë‹´ê²¼ìŠµë‹ˆë‹¤. ");
-				// ------------------------------------------------------------------------------------------------------ì¥ë°”êµ¬ë‹ˆ ë©”ì†Œë“œ ì‘ë™ì‹œí‚¤ê¸° (ì¥ë°”êµ¬ë‹ˆ ê²°ì œ ì´í›„ì œí’ˆìˆ˜ëŸ‰ ì œê±°í•˜ê¸° ê²°ì œ ë²ˆí˜¸ ì¸ìê°’ ì „ë‹¬)
+				System.out.println("Àå¹Ù±¸´Ï¿¡ ´ã°å½À´Ï´Ù. ");
+				// -----------------------------------------------------------------------------------------------------Àå¹Ù±¸´Ï ¸Ş¼Òµå ÀÛµ¿½ÃÅ°±â (Àå¹Ù±¸´Ï °áÁ¦ ÀÌÈÄÁ¦Ç°¼ö·® Á¦°ÅÇÏ±â °áÁ¦ ¹øÈ£ ÀÎÀÚ°ª Àü´Ş)
 				// order_basket(j);
-				for (Integer tp : tmp) { // êµ¬ë§¤í•˜ë˜ ëª»í•˜ë˜ í•˜ë‚˜ì”© ë¨¹ê±°ë¦¬ ëª©ë¡ì— ì¶”ê°€ë¨ // í•˜ë‚˜ë§Œ ì„ íƒí•´ë„ ë¬´ì¡°ê±´ ê²°ì œí•´ì•¼ í•¨
+				for (Integer tp : tmp) { // ±¸¸ÅÇÏ´ø ¸øÇÏ´ø ÇÏ³ª¾¿ ¸Ô°Å¸® ¸ñ·Ï¿¡ Ãß°¡µÊ // ÇÏ³ª¸¸ ¼±ÅÃÇØµµ ¹«Á¶°Ç °áÁ¦ÇØ¾ß ÇÔ
 					int f = 1;
-					System.out.println("======ì¥ë°”êµ¬ë‹ˆ======");
+					System.out.println("======Àå¹Ù±¸´Ï======");
+					System.out.printf(f + "." + "\t%s\t%s", orders.get(tp).getFood(), orders.get(tp).getPrice() + "¿ø\n");
 					f++;
-					System.out.printf(f + "." + "\t%s\t%s", orders.get(tp).getFood(), orders.get(tp).getPrice() + "ì›\n");
-					System.out.println("ì´ ê²°ì œì•¡ : " + price_sum+"ì›");
+					System.out.println("ÃÑ °áÁ¦¾× : " + price_sum+"¿ø");
 					
-					System.out.println("ê²°ì œ í•˜ì‹¤ ê¸ˆì•¡ì„ ì…ë ¥í•´ì£¼ì„¸ìš” ");
+					System.out.println("°áÁ¦ ÇÏ½Ç ±İ¾×À» ÀÔ·ÂÇØÁÖ¼¼¿ä ");
 					System.out.println("----->");
 					 int client_price  = Kiosk.sc.nextInt();
 					if(client_price > price_sum) {
-						int ê±°ìŠ¤ë¦„ëˆ = (client_price - price_sum);
-						System.out.println("ê²°ì œ ì™„ë£Œ");
-						System.out.println("ê±°ìŠ¤ë¦„ëˆ : "+ ê±°ìŠ¤ë¦„ëˆ + "ì›");
+						int °Å½º¸§µ· = (client_price - price_sum);
+						System.out.println("°áÁ¦ ¿Ï·á");
+						System.out.println("°Å½º¸§µ· : "+ °Å½º¸§µ· + "¿ø");
 						total_price += price_sum;
+						
+						int save_money = MemberController.memberlist.get(KioskController.idx_1).getMoney() + price_sum;
+						MemberController.memberlist.get(KioskController.idx_1).setMoney(save_money);
+						db.upLoad(1);
+						
 					}else if(client_price == price_sum) {
-						System.out.println("ê²°ì œ ì™„ë£Œ");
+						System.out.println("°áÁ¦ ¿Ï·á");
+						
+						
+						int save_money = MemberController.memberlist.get(KioskController.idx_1).getMoney() + price_sum;
+						MemberController.memberlist.get(KioskController.idx_1).setMoney(save_money);
 						
 						int orderminus = orders.get(j).getFood_num() - 1;
 						orders.get(j).setFood_num(orderminus);
 						total_price += price_sum;
+						db.upLoad(1);
 					} else {
-						System.out.println("ê²°ì œ ì‹¤íŒ¨");
-						System.out.println("ê¸ˆì•¡ ë¶€ì¡± : " + (price_sum - client_price) + "ì›");
+						System.out.println("°áÁ¦ ½ÇÆĞ");
+						System.out.println("±İ¾× ºÎÁ· : " + (price_sum - client_price) + "¿ø");
 					}
 					db.upLoad(2);
 					break;
@@ -127,71 +137,71 @@ public class AdminController {
 		while(true) {
 			Member cc = new Member();
 			try {
-				System.out.println("\t    [[[ PCë°© í‚¤ì˜¤ìŠ¤í¬ ]]]");
-				System.out.println("1. ë¡œê·¸ì¸ 2. ì•„ì´ë”” ì°¾ê¸° 3. ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°");
-				System.out.println("[ì„ íƒ] > : "); int ch = Kiosk.sc.nextInt();
+				System.out.println("\t    [[[ PC¹æ Å°¿À½ºÅ© ]]]");
+				System.out.println("1. ·Î±×ÀÎ 2. ¾ÆÀÌµğ Ã£±â 3. ºñ¹Ğ¹øÈ£ Ã£±â");
+				System.out.println("[¼±ÅÃ] > : "); int ch = Kiosk.sc.nextInt();
 				
-				if(ch == 1) {//í‚¤ì˜¤ìŠ¤í¬ ì²«í˜ì´ì§€ 1ë²ˆ ì„ íƒ
-					System.out.println("[[ë¡œê·¸ì¸ í˜ì´ì§€ ì…ë‹ˆë‹¤.]]");
-					System.out.println("ì•„ì´ë”” : ");		String id = Kiosk.sc.next();
-					System.out.println("ë¹„ë°€ë²ˆí˜¸ : ");		String pw = Kiosk.sc.next();
+				if(ch == 1) {//Å°¿À½ºÅ© Ã¹ÆäÀÌÁö 1¹ø ¼±ÅÃ
+					System.out.println("[[·Î±×ÀÎ ÆäÀÌÁö ÀÔ´Ï´Ù.]]");
+					System.out.println("¾ÆÀÌµğ : ");		String id = Kiosk.sc.next();
+					System.out.println("ºñ¹Ğ¹øÈ£ : ");		String pw = Kiosk.sc.next();
 					boolean result1 = MemberController.login(id, pw);
 					
 					if(result1) {
-						System.out.println("[ì•Œë¦¼] : ë¡œê·¸ì¸ ì„±ê³µ");
-					}//ë¡œê·¸ì¸ ì„±ê³µ
+						System.out.println("[¾Ë¸²] : ·Î±×ÀÎ ¼º°ø");
+					}//·Î±×ÀÎ ¼º°ø
 					else if(cc.getId().equals("admin")){
-						System.out.println("[ì•Œë¦¼] ê´€ë¦¬ì ë¡œê·¸ì¸ ì„±ê³µ");
-						System.out.println("1. íšŒì›ê°€ì… 2. íšŒì›ì •ë³´ 3. ì¬ê³ í™•ì¸");
+						System.out.println("[¾Ë¸²] °ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø");
+						System.out.println("1. È¸¿ø°¡ÀÔ 2. È¸¿øÁ¤º¸ 3. Àç°íÈ®ÀÎ");
 						int adminCh = Kiosk.sc.nextInt();
 						
 						if(adminCh == 1) {
-							System.out.println("[[[íšŒì›ê°€ì… í˜ì´ì§€ ì…ë‹ˆë‹¤.]]]");
-							System.out.println("ì‚¬ìš©í•  IDë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”"); String adminId = Kiosk.sc.next();
-							System.out.println("ì‚¬ìš©í•  ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”"); String adminPw = Kiosk.sc.next();
-							System.out.println("ì‚¬ìš©í•  ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"); String adminName = Kiosk.sc.next();
-							System.out.println("ì‚¬ìš©í•  ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”"); String adminMail = Kiosk.sc.next();
+							System.out.println("[[[È¸¿ø°¡ÀÔ ÆäÀÌÁö ÀÔ´Ï´Ù.]]]");
+							System.out.println("»ç¿ëÇÒ ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä"); String adminId = Kiosk.sc.next();
+							System.out.println("»ç¿ëÇÒ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä"); String adminPw = Kiosk.sc.next();
+							System.out.println("»ç¿ëÇÒ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä"); String adminName = Kiosk.sc.next();
+							System.out.println("»ç¿ëÇÒ ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä"); String adminMail = Kiosk.sc.next();
 							Member member = new Member(adminId, adminPw, adminName, adminMail);
 							
 							boolean resultAdmin = MemberController.signup(member);
 							DB.upLoad(1);
 							
 							if(resultAdmin) {
-								System.out.println("[ì•Œë¦¼] íšŒì›ê°€ì… ì„±ê³µ");
+								System.out.println("[¾Ë¸²] È¸¿ø°¡ÀÔ ¼º°ø");
 							}else {
-								System.err.println("[ì•Œë¦¼] íšŒì›ê°€ì… ì‹¤íŒ¨");
-							}//íšŒì›ê°€ì… ì‹¤íŒ¨
-						}//ê´€ë¦¬ì í˜ì´ì§€
-					}//ê´€ë¦¬ì ë¡œê·¸ì¸ ì„±ê³µ
-				}//í‚¤ì˜¤ìŠ¤í¬ ì²«í˜ì´ì§€ 1ë²ˆ ì„ íƒ ë
+								System.err.println("[¾Ë¸²] È¸¿ø°¡ÀÔ ½ÇÆĞ");
+							}//È¸¿ø°¡ÀÔ ½ÇÆĞ
+						}//°ü¸®ÀÚ ÆäÀÌÁö
+					}//°ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø
+				}//Å°¿À½ºÅ© Ã¹ÆäÀÌÁö 1¹ø ¼±ÅÃ ³¡
 				
-				if (ch == 2) {//í‚¤ì˜¤ìŠ¤í¬ ì²«í˜ì´ì§€ 2ë²ˆ ì„ íƒ
-					System.out.println("[[ì•„ì´ë”” ì°¾ê¸° í˜ì´ì§€ ì…ë‹ˆë‹¤.]]");
-					System.out.println("ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”. : ");	String name = Kiosk.sc.next();
-					System.out.println("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”. : ");	String email = Kiosk.sc.next();
+				if (ch == 2) {//Å°¿À½ºÅ© Ã¹ÆäÀÌÁö 2¹ø ¼±ÅÃ
+					System.out.println("[[¾ÆÀÌµğ Ã£±â ÆäÀÌÁö ÀÔ´Ï´Ù.]]");
+					System.out.println("ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä. : ");	String name = Kiosk.sc.next();
+					System.out.println("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä. : ");	String email = Kiosk.sc.next();
 					
 					boolean result2 = MemberController.forgotId(name, email);
 					if(result2) {
-						System.out.println("[ì•Œë¦¼] íšŒì›ë‹˜ì˜ ì•„ì´ë””ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤.");
+						System.out.println("[¾Ë¸²] È¸¿ø´ÔÀÇ ¾ÆÀÌµğ¸¦ Ã£¾Ò½À´Ï´Ù.");
 					}
 					else {
-						System.err.println("[ì•Œë¦¼] ë™ì¼í•œ íšŒì›ì •ë³´ê°€ ì—†ì–´ ì•„ì´ë””ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
+						System.err.println("[¾Ë¸²] µ¿ÀÏÇÑ È¸¿øÁ¤º¸°¡ ¾ø¾î ¾ÆÀÌµğ¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
 					}
-				}//í‚¤ì˜¤ìŠ¤í¬ ì²«í˜ì´ì§€ 2ë²ˆ ì„ íƒ ë
+				}//Å°¿À½ºÅ© Ã¹ÆäÀÌÁö 2¹ø ¼±ÅÃ ³¡
 				
-				if(ch == 3) {//í‚¤ì˜¤ìŠ¤í¬ ì²«í˜ì´ì§€ 3ë²ˆ ì„ íƒ
-					System.out.println("[[ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° í˜ì´ì§€ì…ë‹ˆë‹¤.]]");
-					System.out.println("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");		String id = Kiosk.sc.next();
-					System.out.println("ì´ë©”ì¼ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");		String email = Kiosk.sc.next();
+				if(ch == 3) {//Å°¿À½ºÅ© Ã¹ÆäÀÌÁö 3¹ø ¼±ÅÃ
+					System.out.println("[[ºñ¹Ğ¹øÈ£ Ã£±â ÆäÀÌÁöÀÔ´Ï´Ù.]]");
+					System.out.println("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");		String id = Kiosk.sc.next();
+					System.out.println("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");		String email = Kiosk.sc.next();
 					
 					boolean result3 = MemberController.forgotPd(id, email);
 					if(result3) {
-						System.out.println("[ì•Œë¦¼] íšŒì›ë‹˜ì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤.");	
+						System.out.println("[¾Ë¸²] È¸¿ø´ÔÀÇ ºñ¹Ğ¹øÈ£¸¦ Ã£¾Ò½À´Ï´Ù.");	
 					}else {
-						System.err.println("[ì•Œë¦¼] ë™ì¼í•œ íšŒì›ì •ë³´ê°€ ì—†ì–´ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
+						System.err.println("[¾Ë¸²] µ¿ÀÏÇÑ È¸¿øÁ¤º¸°¡ ¾ø¾î ºñ¹Ğ¹øÈ£¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
 					}
 				}
-			}catch (Exception e) {System.out.println("[ì˜¤ë¥˜ ë°œìƒ] ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”." + e);}
+			}catch (Exception e) {System.out.println("[¿À·ù ¹ß»ı] °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä." + e);}
 		}//while end
 	}//login end
 	
