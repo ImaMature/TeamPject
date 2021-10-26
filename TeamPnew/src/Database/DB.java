@@ -15,7 +15,7 @@ public class DB {
 		// memberKind1 -> 키오스크에서 좌석 예약할 때 사용할 번호
 		if(memberKind == 1) {
 			try {
-				String memberPath = "C:\\Users\\강보균\\git\\TeamPject\\TeamPnew\\src\\Database/test.txt";
+				String memberPath = "C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database/test.txt";
 				FileOutputStream fileOutputStream = new FileOutputStream(memberPath);
 				
 				for(Member member : MemberController.memberlist) {
@@ -33,7 +33,7 @@ public class DB {
 		// memberKind2 -> 회원에서 회원가입, 로그인할 때 사용할 번호
 		} else if(memberKind == 2) {
 			try {
-				String foodPath = "C:\\Users\\강보균\\git\\TeamPject\\TeamPnew\\src\\Database/Food.txt";
+				String foodPath = "C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database/Food.txt";
 				FileOutputStream fileOutputStream = new FileOutputStream(foodPath);
 				
 				AdminController ac = new AdminController();
@@ -56,7 +56,7 @@ public class DB {
 	public static void downLoad(int memberKind) {
 		if(memberKind == 1) {
 			try {
-				String memberPath = "C:\\Users\\강보균\\git\\TeamPject\\TeamPnew\\src\\Database\\test.txt";
+				String memberPath = "C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database/test.txt";
 				FileInputStream fileInputStream = new FileInputStream(memberPath);
 				
 				byte[] bytes = new byte[10240];
@@ -78,7 +78,7 @@ public class DB {
 		// memberKind2 -> 회원에서 회원가입, 로그인할 때 사용할 번호
 		} else if(memberKind == 2) {
 			try {
-			String foodPath ="C:\\Users\\강보균\\git\\TeamPject\\TeamPnew\\src\\Database/Food.txt"; 
+			String foodPath ="C:\\Users\\505\\git\\TeamPject\\TeamPnew\\src\\Database/Food.txt"; 
 				FileInputStream fileInputStream = new FileInputStream(foodPath);
 				
 				byte[] bytes = new byte[10240];

@@ -134,7 +134,7 @@ public class MemberController {
 	}
 	
 	// È¸¿øÅ»Åð
-	public static void fuck() {
+	public static void signout() {
 		
 	}
 	

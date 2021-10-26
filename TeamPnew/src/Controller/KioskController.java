@@ -34,16 +34,52 @@ public class KioskController {
 				System.out.print((i + 1) + "\t");
 			}
 			System.out.println();
-			for(int i = 0; i < 6; i ++) {
+			for(int i = 0; i < 6; i++) {
 				seat.add("□\t");
 				System.out.print(seat.get(i));
 			}
 			System.out.println("\n-----------------------------------------------");
-			System.out.println("\t1. 좌석선택\t2. 선택한 자리로 이동");
+			System.out.println("1. 회원   2. 좌석선택   3. 선택한 자리로 이동");
 			System.out.print("----->");
 			
 			int ch = Kiosk.sc.nextInt();
-				if(ch == 1) {
+			if(ch==1) {
+				System.out.println("1. 회원 가입\t2.아이디 찾기\t3.비밀번호 찾기");
+				int mainCh = Kiosk.sc.nextInt();
+				if(mainCh == 1) {
+					
+					System.out.println("[[[회원가입 페이지 입니다.]]]");
+					System.out.println("사용할 ID를 입력해주세요"); String adminId = Kiosk.sc.next();
+					System.out.println("사용할 비밀번호를 입력해주세요"); String adminPw = Kiosk.sc.next();
+					System.out.println("사용할 이름을 입력해주세요"); String adminName = Kiosk.sc.next();
+					System.out.println("사용할 이메일을 입력해주세요"); String adminMail = Kiosk.sc.next();
+					Member guest = new Member(adminId, adminPw, adminName, adminMail);
+					
+					boolean resultAdmin = MemberController.signup(guest);
+					DB.upLoad(1);
+				
+					if(resultAdmin) {
+						System.out.println("[알림] 회원가입 성공");
+					}else {
+						System.err.println("[알림] 회원가입 실패");
+					}//회원가입 실패
+					continue;
+				}
+				if(mainCh == 2) {
+					System.out.println("이름 : "); 	String name = Kiosk.sc.next();
+					System.out.println("이메일 : ");	String email = Kiosk.sc.next();
+					mc.forgotId(name, email);
+					
+					continue;
+				}
+				if(mainCh==3) {
+					System.out.println("아이디 : ");	String id2 = Kiosk.sc.next();
+					System.out.println("이메일 : ");	String email2 = Kiosk.sc.next();
+					mc.forgotPd(id2, email2);
+					continue;
+				}
+			}
+				if(ch == 4) {
 					System.out.print("ID : ");
 					String id = Kiosk.sc.next();
 					System.out.print("PW : ");
@@ -59,7 +95,7 @@ public class KioskController {
 
 					for(int i = 1; i < seat.size(); i++) {
 						if(ch2 == i) {
-							if(seat.get(i - 1).equals(seatEnough)) {
+							if(seat.get(i - 1).equals(seatEnough)) { //번호는 123~ 자리 인덱스는 012~
 								System.out.println("선택한 자리가 사용중입니다.");
 							} else {
 								seat.set(i - 1, seatEnough).replace(seatEmpty, seatEnough);
@@ -71,7 +107,7 @@ public class KioskController {
 					System.out.println("회원정보가 틀립니다.");
 				}
 				
-			} else if(ch == 2) {
+			} else if(ch == 5) {
 				System.out.println("자리 확인을 위한 로그인 필요");
 				System.out.print("ID : ");
 				String id = Kiosk.sc.next();
@@ -98,51 +134,25 @@ public class KioskController {
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
-							System.out.println("1. 회원가입 2. 회원정보 3. 재고확인 4. 재고등록 5. 시간추가 \n6. 매출확인 7.아이디찾기 8. 비밀번호찾기 9. 나가기");
+							System.out.println(" 1. 회원정보 2. 재고확인 3. 재고등록 4. 시간추가 5. 매출확인 6. 나가기");
 							int adminCh = Kiosk.sc.nextInt();
 								
 							if(adminCh == 1){
-								System.out.println("[[[회원가입 페이지 입니다.]]]");
-								System.out.println("사용할 ID를 입력해주세요"); String adminId = Kiosk.sc.next();
-								System.out.println("사용할 비밀번호를 입력해주세요"); String adminPw = Kiosk.sc.next();
-								System.out.println("사용할 이름을 입력해주세요"); String adminName = Kiosk.sc.next();
-								System.out.println("사용할 이메일을 입력해주세요"); String adminMail = Kiosk.sc.next();
-								Member guest = new Member(adminId, adminPw, adminName, adminMail);
-								
-								boolean resultAdmin = MemberController.signup(guest);
-								DB.upLoad(1);
-							
-								if(resultAdmin) {
-									System.out.println("[알림] 회원가입 성공");
-								}else {
-									System.err.println("[알림] 회원가입 실패");
-								}//회원가입 실패
-								break;
+								mc.info();
 							} else if(adminCh == 2) {
 								
-								mc.info();
-							} else if(adminCh == 3){
 								ac.order_status();
-							} else if(adminCh == 4) {
+							} else if(adminCh == 3){
 								ac.enroll();
 								break;
+							} else if(adminCh == 4) {
+								//시간추가 결제
 							} else if(adminCh == 5) {
-								// 시간추가(결제)
-							} else if(adminCh == 6){
 								ac.sales();
-								
-							} 
-							else if (adminCh == 7) {
-								System.out.println("이름 : "); 	String name = Kiosk.sc.next();
-								System.out.println("이메일 : ");	String email = Kiosk.sc.next();
-								mc.forgotId(name, email);
-							} else if (adminCh == 8) {
-								System.out.println("아이디 : ");	String id2 = Kiosk.sc.next();
-								System.out.println("이메일 : ");	String email2 = Kiosk.sc.next();
-								mc.forgotPd(id2, email2);
-							}else if(adminCh ==  9) {
+							} else if(adminCh == 6){
 								break;
-							}
+							} 
+							
 						}
 				String[] gamement = {"로스트아크 : 에포나 의뢰중", "롤 : 영혼의 한타중", "GTA5 : 습격 미션 진행중", "디아블로2 : 메피스토 앵벌중"
 						, "피파4 : 카드깡 하는중", "스타크래프트 : 손빠르기 측정중", "배틀그라운드 : TOP10이라 존버중", "네이버웹툰 : 싸움독학 보는중"
