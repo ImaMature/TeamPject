@@ -135,7 +135,6 @@ public class AdminController {
                 for (int k2 = 0; k2<map_order.size(); k2++) {
               	  
               	  int orderminus = orders.get(k2).getFood_num() - map_order.get(k2).getCount();
-  	              System.out.println("¤·¤·¤·" + k2);
   	              orders.get(k2).setFood_num(orderminus);
                  
   	              System.out.println("ÃÑ °áÁ¦¾× : " + price_sum+"¿ø");   
