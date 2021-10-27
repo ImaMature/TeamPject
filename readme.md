@@ -1,5 +1,8 @@
 ## 주제  
 >PC방 키오스크  
+##
+>![image](https://user-images.githubusercontent.com/88884623/139022441-bc64242c-39d6-4a08-bc04-de812a0e0af9.png)
+
 
 ## 개요  
 > PC방관리시스템을 관리자, 좌석 키오스크, 이용자 PC화면 관리시스템을 구축할 것입니다. 
@@ -24,7 +27,15 @@
 > Admin : 최병호  
 
 ## 주요 코드
-> 
+> static int kkkkk1 = 0;
+ >long firstTime = System.nanoTime();
+	kkkkk1 = (int)(firstTime/1000000000); 
+  long endTime = System.nanoTime();
+					int kkkkk2 = (int)(endTime/1000000000);
+					int kkkkk = (int)(kkkkk2 - kkkkk1);
+						if(!id.equals("admin")) {
+							
+						System.out.println("사용시간 : " + kkkkk  + "초");
 ## 보완할 점
 > 1. 콘솔창으로 하는 프로젝트이다보니, 출력하는 데 한계가 있음을 발견. 
   나중에 DB연동해서 UI까지 사용하면 더 제대로 된 프로그램이 나올듯.   
