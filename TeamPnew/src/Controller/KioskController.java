@@ -182,6 +182,17 @@ public class KioskController {
 					System.out.print("PW : ");
 					String pw = Kiosk.sc.next();
 					
+					boolean Logcheck = MemberController.login(id, pw);
+					
+					for(int i = 0; i < mc.memberlist.size(); i++) {
+						if(mc.memberlist.get(i).getId().equals(id)) {
+							idx_1 = i;
+							if(mc.memberlist.get(idx_1).getTime() <= 0) {
+								Logcheck = false;
+							}
+						}
+					}
+					
 					if(id.equals("admin")) {
 						System.out.println("좌석을 예약할 수 없습니다.");
 						continue;
@@ -192,7 +203,6 @@ public class KioskController {
 							idx_1 = i;
 						}
 					}
-				boolean Logcheck = MemberController.login(id, pw);
 				
 				if(Logcheck) {
 					System.out.println("------------------  좌석 선택  ------------------");
@@ -211,7 +221,7 @@ public class KioskController {
 						}
 					}
 				} else {
-					System.out.println("회원정보가 틀립니다.");
+					System.out.println("회원정보가 틀리거나 시간 충전이 필요합니다.");
 				}
 				
 			} else if(ch == 3) {
@@ -220,6 +230,8 @@ public class KioskController {
 				String id = Kiosk.sc.next();
 				System.out.print("PW : ");
 				String pw = Kiosk.sc.next();
+				
+				boolean Logcheck = MemberController.login(id, pw);
 				
 				for(int i = 0; i < seat.size(); i++) {
 					if(id.equals("admin") || seat.get(i).equals(seatEnough)) {
@@ -233,7 +245,6 @@ public class KioskController {
 					continue;
 				}
 				
-				boolean Logcheck = MemberController.login(id, pw);
 				boolean run = true;
 				if(Logcheck) {
 					long firstTime = System.nanoTime();
