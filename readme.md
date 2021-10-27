@@ -24,8 +24,8 @@
 
 ## 역할 분담
 > Member : 장희동
-> Kiosk : 최병호
-> Admin : 최병호  
+> Kiosk : 강보균
+> Admin : 최병호 
 
 ## 주요 코드
 <사용시간 구하기>![image](https://user-images.githubusercontent.com/88884623/139022648-a6c81320-61e5-4026-b4a9-7043068d92cf.png)
