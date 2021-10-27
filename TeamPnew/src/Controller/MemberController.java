@@ -22,10 +22,9 @@ public class MemberController {
 	
 	// 시간관리
 	public static void timeControll() {
-		DB.downLoad(1);
 		int saveTime = memberlist.get(KioskController.idx_1).getTime();
-		
-		System.out.printf("%02d : %02d : %02d",(saveTime / 3600), (saveTime%60), (saveTime%60)%60);
+		System.out.println("남은 시간");
+		System.out.printf("%02d : %02d : %02d", (saveTime/3600), (saveTime/60)%60, (saveTime%60));
 		System.out.println();
 	}
 	
@@ -120,7 +119,10 @@ public class MemberController {
 				System.out.println("ID : " + memberlist.get(i).getId());
 				System.out.println("이름 : " + memberlist.get(i).getName());
 				System.out.println("E-mail : " + memberlist.get(i).getEmail());
-				System.out.println("남은 시간 : " + memberlist.get(i).getTime());
+				int save = memberlist.get(i).getTime();
+				System.out.printf("남은 시간\n%02d : %02d : %02d",(save/3600), (save/60)%60, (save%60));
+				System.out.println();
+				System.out.println("총 사용금액 : " + memberlist.get(i).getMoney() + "원");
 			}
 		}
 //		if(member.getId().equals(id)) {

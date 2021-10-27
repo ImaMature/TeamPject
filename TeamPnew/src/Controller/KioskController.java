@@ -33,42 +33,56 @@ public class KioskController {
 		// 시간 계산 및 저장할때는 int형으로 받아서 표시할때만 string으로 표현  
 		
 		while(true) {
-			System.out.println("================   PC방 키오스크   ===============");
-			System.out.println("------------------  좌석 현황  ------------------");
+			System.out.println("=============================  PC방 키오스크  ==============================");
+			System.out.println("|\t-----------------------  좌석 현황  -----------------------\t|");
 	
+			System.out.print("|\t|\t");
 			for(int i = 0; i < 6; i++) {
 				System.out.print((i + 1) + "\t");
 			}
+			System.out.print("|\t|");
 			System.out.println();
+			System.out.print("|\t|\t");
 			for(int i = 0; i < 6; i++) {
 				seat.add("□\t");
 				System.out.print(seat.get(i));
 			}
+			System.out.print("|\t|");
 			
-			System.out.println("\n-----------------------------------------------");
-			System.out.println("1. 회원   2. 좌석선택   3. 선택한 자리로 이동 ");
-			System.out.print("----->");
+			System.out.println("\n|\t---------------------------------------------------------\t|");
+			System.out.println("|\t| 1. 회원\t | 2. 좌석선택 |\t3. 선택한 자리로 이동  |\t\t|\t|");
+			System.out.print("|\t| -----> ");
 		
 			int ch = Kiosk.sc.nextInt();
-			if(ch==1) {
-				System.out.println("1. 회원 가입\t2.아이디 찾기\t3.비밀번호 찾기 4. 시간결제 ");
+			System.out.println("|\t|-------------------------------------------------------|\t|");
+			if(ch == 1) {
+				System.out.println("|\t| 1. 회원 가입 | 2.아이디 찾기 | 3.비밀번호 찾기 | 4. 시간결제\t|\t|");
+				System.out.print("|\t| -----> ");
 				int mainCh = Kiosk.sc.nextInt();
+				
 				if(mainCh == 1) {
 					
-					System.out.println("[[[회원가입 페이지 입니다.]]]");
-					System.out.println("사용할 ID를 입력해주세요"); String adminId = Kiosk.sc.next();
-					System.out.println("사용할 비밀번호를 입력해주세요"); String adminPw = Kiosk.sc.next();
-					System.out.println("사용할 이름을 입력해주세요"); String adminName = Kiosk.sc.next();
-					System.out.println("사용할 이메일을 입력해주세요"); String adminMail = Kiosk.sc.next();
+					System.out.println("|\t-----------------------  회원 가입  -----------------------\t|");
+					System.out.print("|\t| 사용할 ID를 입력해주세요 : "); String adminId = Kiosk.sc.next();
+					System.out.print("|\t| 사용할 비밀번호를 입력해주세요 : "); String adminPw = Kiosk.sc.next();
+					System.out.print("|\t| 사용할 이름을 입력해주세요 : "); String adminName = Kiosk.sc.next();
+					System.out.print("|\t| 사용할 이메일을 입력해주세요 : "); String adminMail = Kiosk.sc.next();
 					
 					Member guest = new Member(adminId, adminPw, adminName, adminMail, 0, 0);
 					
 					boolean resultAdmin = MemberController.signup(guest);
+					System.out.println("|\t|-------------------------------------------------------|\t|");
 					DB.upLoad(1);
 				
 					if(resultAdmin) {
+						for(int i = 0; i < 100; i++) {
+							System.out.println();
+						}
 						System.out.println("[알림] 회원가입 성공");
 					}else {
+						for(int i = 0; i < 100; i++) {
+							System.out.println();
+						}
 						System.err.println("[알림] 회원가입 실패");
 					}//회원가입 실패
 					//continue;
@@ -76,17 +90,19 @@ public class KioskController {
 					
 				}
 				if(mainCh == 2) {
-					System.out.println("이름 : "); 	String name = Kiosk.sc.next();
-					System.out.println("이메일 : ");	String email = Kiosk.sc.next();
-//					boolean resultId = MemberController.forgotId(name, email);
+					System.out.println("|\t|----------------------  아이디찾기  ----------------------|\t|");
+					System.out.print("|\t| 이름 : "); 	String name = Kiosk.sc.next();
+					System.out.print("|\t| 이메일 : ");	String email = Kiosk.sc.next();
 					mc.forgotId(name, email);
-					
+					System.out.println("|\t|-------------------------------------------------------|\t|");
 					continue;
 				}
-				if(mainCh==3) {
-					System.out.println("아이디 : ");	String id2 = Kiosk.sc.next();
-					System.out.println("이메일 : ");	String email2 = Kiosk.sc.next();
+				if(mainCh == 3) {
+					System.out.println("|\t|---------------------  비밀번호찾기  ----------------------|\t|");
+					System.out.println("|\t| 아이디 : ");	String id2 = Kiosk.sc.next();
+					System.out.println("|\t| 이메일 : ");	String email2 = Kiosk.sc.next();
 					mc.forgotPd(id2, email2);
+					System.out.println("|\t|-------------------------------------------------------|\t|");
 					continue;
 				}
 				if(mainCh == 4) {
@@ -101,54 +117,63 @@ public class KioskController {
 					
 					
 					if(logincheck) {
+						
 						System.out.println("시간충전을 선택해주세요 ");
-						System.out.println("1. 1시간\t2. 2시간\t3. 5시간\t4. 10시간");
+						System.out.println("1. 1시간/1000원\t2. 2시간/2000원\t3. 5시간/5000원\t4. 10시간/10000원");
+						
 						int timech = Kiosk.sc.nextInt();
 						
 						if(timech == 1) {
 							for(int i =0; i<MemberController.memberlist.size(); i++) {
 								if(MemberController.memberlist.get(i).getId().equals(id)) {
-									MemberController.memberlist.get(i).setTime(3600);
 									idx_1 = i;
+									MemberController.memberlist.get(idx_1).setTime(MemberController.memberlist.get(idx_1).getTime() + 3600);
+									MemberController.memberlist.get(idx_1).setMoney(MemberController.memberlist.get(idx_1).getMoney() + 1000);
+									ac.total_price += 1000;
+									DB.upLoad(1);
 									break;
 								}
 							}
-//							mc.timeControll();
 						}
 						if(timech == 2) {
 							for(int i =0; i<MemberController.memberlist.size(); i++) {
 								if(MemberController.memberlist.get(i).getId().equals(id)) {
-									MemberController.memberlist.get(i).setTime(7200);
 									idx_1 = i;
+									MemberController.memberlist.get(idx_1).setTime(MemberController.memberlist.get(idx_1).getTime() + 7200);
+									MemberController.memberlist.get(idx_1).setMoney(MemberController.memberlist.get(idx_1).getMoney() + 2000);
+									ac.total_price += 2000;
+									DB.upLoad(1);
 									break;
 								}
 							}
-//							mc.timeControll();
 						}
 						if(timech == 3) {
 							for(int i =0; i<MemberController.memberlist.size(); i++) {
 								if(MemberController.memberlist.get(i).getId().equals(id)) {
-									MemberController.memberlist.get(i).setTime(18000);
 									idx_1 = i;
+									MemberController.memberlist.get(idx_1).setTime(MemberController.memberlist.get(idx_1).getTime() + 18000);
+									MemberController.memberlist.get(idx_1).setMoney(MemberController.memberlist.get(idx_1).getMoney() + 5000);
+									ac.total_price += 5000;
+									DB.upLoad(1);
 									break;
 								}
 							}
-//							mc.timeControll();
 						}
 						if(timech == 4) {
 							for(int i =0; i<MemberController.memberlist.size(); i++) {
 								if(MemberController.memberlist.get(i).getId().equals(id)) {
-									MemberController.memberlist.get(i).setTime(36000);
 									idx_1 = i;
+									MemberController.memberlist.get(idx_1).setTime(MemberController.memberlist.get(idx_1).getTime() + 36000);
+									MemberController.memberlist.get(idx_1).setMoney(MemberController.memberlist.get(idx_1).getMoney() + 10000);
+									ac.total_price += 10000;
+									DB.upLoad(1);
 									break;
 								}
 							}
-//							mc.timeControll();
 						}
 					}
 					mc.timeControll();
 				}
-				
 			}
 		
 			if(ch == 2) {
@@ -156,6 +181,11 @@ public class KioskController {
 					String id = Kiosk.sc.next();
 					System.out.print("PW : ");
 					String pw = Kiosk.sc.next();
+					
+					if(id.equals("admin")) {
+						System.out.println("좌석을 예약할 수 없습니다.");
+						continue;
+					}
 
 					for(int i =0; i<MemberController.memberlist.size(); i++) {
 						if(MemberController.memberlist.get(i).getId().equals(id)) {
@@ -211,23 +241,22 @@ public class KioskController {
 					while(run) {
 						if(id.equals("admin")) {
 							System.out.println("[알림] 관리자 로그인 성공");
-							System.out.println(" 1. 회원정보 2. 재고확인 3. 재고등록 4. 시간추가 5. 매출확인 6. 나가기");
+							System.out.println(" 1. 회원정보 2. 재고확인 3. 재고등록 4. 매출확인 5. 나가기");
 							int adminCh = Kiosk.sc.nextInt();
 								
 							if(adminCh == 1){
 								mc.info();
+								continue;
 							} else if(adminCh == 2) {
-								
 								ac.order_status();
-								
+								continue;
 							} else if(adminCh == 3){
 								ac.enroll();
-								break;
+								continue;
 							} else if(adminCh == 4) {
-								//시간추가 결제
-							} else if(adminCh == 5) {
 								ac.sales();
-							} else if(adminCh == 6){
+								continue;
+							} else if(adminCh == 5){
 								break;
 							} 
 						continue;	
@@ -275,11 +304,21 @@ public class KioskController {
 					long endTime = System.nanoTime();
 					int kkkkk2 = (int)(endTime/1000000000);
 					int kkkkk = (int)(kkkkk2 - kkkkk1);
-					System.out.println("사용시간 : " + kkkkk  + "초"); // 시간, 분, 초로 찍기
+						if(!id.equals("admin")) {
+							
+						System.out.println("사용시간 : " + kkkkk  + "초"); // 시간, 분, 초로 찍기
+						for(int i = 0; i < MemberController.memberlist.size(); i++) {
+							if(MemberController.memberlist.get(i).getId().equals(id)) {
+								idx_1 = i;
+								MemberController.memberlist.get(idx_1).setTime(MemberController.memberlist.get(idx_1).getTime() - kkkkk);
+								mc.timeControll();
+								DB.upLoad(1);
+								break;
+							}
+						}
+					}
 				}
 			}
-			
 		}
-	
 	}
 }
