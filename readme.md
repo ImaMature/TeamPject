@@ -27,15 +27,7 @@
 > Admin : 최병호  
 
 ## 주요 코드
-> static int kkkkk1 = 0;
- >long firstTime = System.nanoTime();
-	kkkkk1 = (int)(firstTime/1000000000); 
-  long endTime = System.nanoTime();
-					int kkkkk2 = (int)(endTime/1000000000);
-					int kkkkk = (int)(kkkkk2 - kkkkk1);
-						if(!id.equals("admin")) {
-							
-						System.out.println("사용시간 : " + kkkkk  + "초");
+<사용시간 구하기>![image](https://user-images.githubusercontent.com/88884623/139022648-a6c81320-61e5-4026-b4a9-7043068d92cf.png)
 ## 보완할 점
 > 1. 콘솔창으로 하는 프로젝트이다보니, 출력하는 데 한계가 있음을 발견. 
   나중에 DB연동해서 UI까지 사용하면 더 제대로 된 프로그램이 나올듯.   
