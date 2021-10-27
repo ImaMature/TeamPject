@@ -17,7 +17,8 @@
 ## MVC
 ><MVC>![PC방 MVC](https://user-images.githubusercontent.com/88884623/139001433-d5266bf4-70fd-4e22-9fd7-00a13ca74825.png)
 >![PC방MVC2](https://user-images.githubusercontent.com/88884623/139001457-3e0af032-d77f-43bd-ac05-7314493652c5.png)
-  
+><순서도> ![ghghgh drawio](https://user-images.githubusercontent.com/88884623/139023062-44da5e8b-5f46-43f3-b080-1c02e9a93760.png)
+ 
 ## 프로젝트 기간  
 > ~10/27 까지  
 
