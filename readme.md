@@ -8,17 +8,21 @@
 >jdk11, Eclipse, Window10, Github  
 
 ## 설계도
-><초안> ![image](https://user-images.githubusercontent.com/61840067/138249904-565b62ce-7cdd-407a-a8d8-b777ba302d7b.png)  
+><초안> ![image](https://user-images.githubusercontent.com/61840067/138249904-565b62ce-7cdd-407a-a8d8-b777ba302d7b.png)
 
-
+><수정안>![그림1](https://user-images.githubusercontent.com/88884623/139001465-fc86e267-befe-49a6-a77e-13219ec8530c.png)
+## MVC
+><MVC>![PC방 MVC](https://user-images.githubusercontent.com/88884623/139001433-d5266bf4-70fd-4e22-9fd7-00a13ca74825.png)
+>![PC방MVC2](https://user-images.githubusercontent.com/88884623/139001457-3e0af032-d77f-43bd-ac05-7314493652c5.png)
+  
 ## 프로젝트 기간  
 > ~10/27 까지  
 
 ## 역할 분담
-
+>
 
 ## 주요 기능
-
-##
-
+>
+## 보완할 점
+>
 
