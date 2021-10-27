@@ -7,14 +7,16 @@
 ## 환경
 >jdk11, Eclipse, Window10, Github  
 
-## 설계도
-><초안> ![image](https://user-images.githubusercontent.com/61840067/138249904-565b62ce-7cdd-407a-a8d8-b777ba302d7b.png)
+## 설계도(초안)
+> ![image](https://user-images.githubusercontent.com/61840067/138249904-565b62ce-7cdd-407a-a8d8-b777ba302d7b.png)
 
-><수정안>
-## MVC
-><MVC>![PC방 MVC](https://user-images.githubusercontent.com/88884623/139001433-d5266bf4-70fd-4e22-9fd7-00a13ca74825.png)
+
+## 설계도(수정안)
+
+><MVC>![PC방 MVC](https://user-images.githubusercontent.com/88884623/139011270-ababe177-eafb-4758-8e54-9782b2fa6860.png)
 >![PC방MVC2](https://user-images.githubusercontent.com/88884623/139001457-3e0af032-d77f-43bd-ac05-7314493652c5.png)
-  
+>![그림1](https://user-images.githubusercontent.com/88884623/139010908-ac357931-5ee6-4ba0-b7e1-8bf42a392f38.png)
+ 
 ## 프로젝트 기간  
 > ~10/27 까지  
 
@@ -29,7 +31,7 @@
 > - 시간추가 시스템, 주문
 > - 사용한 시간 체크
 ## 주요 코드
->
+> 
 ## 보완할 점
 > 콘솔창으로 하는 프로젝트이다보니, 한개의 콘솔창으로만 출력, 출력하는 데 한계가 있음을 발견(실제 PC방에서는 관리자는 관리자화면 따로, 손님은 손님화면 따로 . 나중에 DB연동해서 UI까지 사용하면 더 제대로 된 프로그램이 나올듯.
 > 물품을 주문하고 
